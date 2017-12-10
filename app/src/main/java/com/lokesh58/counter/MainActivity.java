@@ -31,4 +31,9 @@ public class MainActivity extends AppCompatActivity {
         }
         counterDisplay.setText(Integer.toString(counter));
     }
+
+    public void resetCounter(View view) {
+        counter = 0;
+        counterDisplay.setText(Integer.toString(counter));
+    }
 }
