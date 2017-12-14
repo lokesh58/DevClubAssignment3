@@ -10,9 +10,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private TextView counterDisplay;
-    private int counter;
+    static int counter = 0;
     private Animation animIn;
     private Animation animOut;
+    private boolean anim_started = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,17 +21,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         counterDisplay = (TextView) findViewById(R.id.counterDisplay);
-        counter = 0;
+        counterDisplay.setText(Integer.toString(counter));
         animIn = AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.slide_in_left);
         animOut= AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.slide_out_right);
         animOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                if (anim_started) {
+                    counterDisplay.setText(Integer.toString(counter));
+                } else {
+                    anim_started = true;
+                }
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                anim_started = false;
                 counterDisplay.startAnimation(animIn);
             }
 
